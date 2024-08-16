@@ -18,4 +18,7 @@ class BUILTTOSCALE_API ABlockGameMode : public AGameModeBase
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 	TSoftClassPtr<AActor> BlockClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
+	float MoveInterval;
 };
