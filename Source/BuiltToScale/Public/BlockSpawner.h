@@ -23,7 +23,7 @@ public:
 	int32 Level = 0;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	TSoftObjectPtr<UTexture> Image;
+	TObjectPtr<UTexture2D> Image;
 };
 
 UCLASS()
@@ -58,7 +58,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 	AActor* SpawnPoint;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
+
 	TArray<TSoftClassPtr<AActor>> AllBlocks;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
+
 	TArray<TSoftClassPtr<AActor>> InitialBlocks;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 	TArray<TSoftClassPtr<AActor>> UnlockedBlocks;
 };
