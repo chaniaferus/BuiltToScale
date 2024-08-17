@@ -9,6 +9,23 @@
 /**
  * 
  */
+
+USTRUCT(BlueprintType)
+struct FBlockClass : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftClassPtr<AActor> BlockClass;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	int32 Level = 0;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSoftObjectPtr<UTexture> Image;
+};
+
 UCLASS()
 class BUILTTOSCALE_API UBlockSpawner : public UWorldSubsystem
 {
@@ -25,4 +42,6 @@ class BUILTTOSCALE_API UBlockSpawner : public UWorldSubsystem
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 	AActor* SpawnPoint;
+
+	TArray<TSoftClassPtr<AActor>> UnlockedBlocks;
 };
