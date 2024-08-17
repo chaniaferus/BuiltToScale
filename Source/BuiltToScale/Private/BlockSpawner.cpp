@@ -57,21 +57,29 @@ void UBlockSpawner::SpawnBlock()
 		return;
 	}
 
+	if (NextBlock == nullptr)
+	{
+		NextBlock = GetRandomUnlockedBlock();
+	}
+
 	const FVector SpawnLocation = SpawnPoint->GetActorLocation();
 	FRotator SpawnRotation = FRotator(0, 0, 0);
 	SpawnRotation.Roll += 90 * FMath::RandRange(0, 3);
 
-	const int32 RandomIndex = FMath::RandRange(0, UnlockedBlocks.Num() - 1);
+	AActor* SpawnedActor = GetWorld()->SpawnActor(NextBlock.Get(), &SpawnLocation, &SpawnRotation);
+	ActiveBlock = SpawnedActor;
+	NextBlock = GetRandomUnlockedBlock();
+}
 
+TSoftClassPtr<AActor> UBlockSpawner::GetRandomUnlockedBlock()
+{
+	const int32 RandomIndex = FMath::RandRange(0, UnlockedBlocks.Num() - 1);
 	if (!UnlockedBlocks.IsValidIndex(RandomIndex))
 	{
-		return;
+		return nullptr;
 	}
 
-	const TSoftClassPtr<AActor> RandomBlockClass = UnlockedBlocks[RandomIndex];
-
-	AActor* SpawnedActor = GetWorld()->SpawnActor(RandomBlockClass.Get(), &SpawnLocation, &SpawnRotation);
-	ActiveBlock = SpawnedActor;
+	return UnlockedBlocks[RandomIndex];
 }
 
 void UBlockSpawner::SetupInitialUnlockedBlocks(const int NumberOfBlocks)
