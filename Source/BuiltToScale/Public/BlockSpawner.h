@@ -38,6 +38,9 @@ public:
 	void SpawnBlock();
 
 	UFUNCTION(BlueprintCallable)
+	TSoftClassPtr<AActor> GetRandomUnlockedBlock();
+
+	UFUNCTION(BlueprintCallable)
 	void SetupInitialUnlockedBlocks(int NumberOfBlocks);
 
 	UFUNCTION(BlueprintCallable)
@@ -48,6 +51,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 	AActor* ActiveBlock;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
+	TSoftClassPtr<AActor> NextBlock;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 	AActor* SpawnPoint;
