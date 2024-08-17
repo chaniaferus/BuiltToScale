@@ -24,6 +24,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bTaken = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AActor* OverlappingBlock = nullptr;
 };
 
 UCLASS()

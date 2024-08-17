@@ -43,3 +43,17 @@ TArray<int32> ULineChecker::GetLinesToClean()
 
 	return LinesToClean;
 }
+
+void ULineChecker::CleanLines(TArray<int32> LineNumbers)
+{
+	for (int32 LineNumber : LineNumbers)
+	{
+		TArray<ATriggerPoint*> TriggerPoints = Lines[LineNumber].TriggerPoints;
+		
+		for (ATriggerPoint* TriggerPoint : TriggerPoints)
+		{
+			TriggerPoint->OverlappingBlock->Destroy();
+		}
+	}
+}
+

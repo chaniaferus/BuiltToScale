@@ -32,6 +32,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	TArray<int32> GetLinesToClean();
 
+	UFUNCTION(BlueprintCallable)
+	void CleanLines(TArray<int32> LineNumbers);
+
 private:
 	TMap<int32, FTriggerLine> Lines;
 };
