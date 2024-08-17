@@ -57,3 +57,38 @@ void ULineChecker::CleanLines(TArray<int32> LineNumbers)
 	}
 }
 
+void ULineChecker::FillEmptyLines(TArray<int32> EmptyLines)
+{
+	if (EmptyLines.Num() == 0)
+	{
+		return;
+	}
+
+	TArray<int32> LinesToMove;
+
+	int32 EmptyLinesIndex = 0;
+	for (int32 Index = 0; Index < Lines.Num(); Index++)
+	{
+		if (EmptyLines.IsValidIndex(EmptyLinesIndex) && Index == EmptyLines[EmptyLinesIndex])
+		{
+			EmptyLinesIndex++;
+			continue;
+		}
+
+		if (!Lines.Contains(Index))
+		{
+			return;
+		}
+		
+		TArray<ATriggerPoint*> BlocksToMove = Lines[Index].TriggerPoints;
+		for (const ATriggerPoint* TriggerPoint : BlocksToMove)
+		{
+			if (TriggerPoint->OverlappingBlock)
+			{
+				FVector DeltaLocation = FVector::ZeroVector;
+				DeltaLocation.Z -= EmptyLinesIndex * 100;
+				TriggerPoint->OverlappingBlock->AddActorWorldOffset(DeltaLocation);
+			}
+		}
+	}
+}
