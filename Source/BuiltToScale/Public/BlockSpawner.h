@@ -18,7 +18,7 @@ struct FBlockClass : public FTableRowBase
 public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TSoftClassPtr<AActor> BlockClass;
-	
+
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int32 Level = 0;
 
@@ -31,17 +31,28 @@ class BUILTTOSCALE_API UBlockSpawner : public UWorldSubsystem
 {
 	GENERATED_BODY()
 
-	public:
+public:
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 
 	UFUNCTION(BlueprintCallable)
 	void SpawnBlock();
-	
+
+	UFUNCTION(BlueprintCallable)
+	void SetupInitialUnlockedBlocks(int NumberOfBlocks);
+
+	UFUNCTION(BlueprintCallable)
+	void AddBlock(TSoftClassPtr<AActor> Block);
+
+	UFUNCTION(BlueprintCallable)
+	void RemoveBlock(TSoftClassPtr<AActor> Block);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 	AActor* ActiveBlock;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 	AActor* SpawnPoint;
 
+	TArray<TSoftClassPtr<AActor>> AllBlocks;
+	TArray<TSoftClassPtr<AActor>> InitialBlocks;
 	TArray<TSoftClassPtr<AActor>> UnlockedBlocks;
 };
