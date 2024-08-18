@@ -70,6 +70,8 @@ void ULineChecker::FillEmptyLines(TArray<int32> EmptyLines)
 
 	TArray<int32> LinesToMove;
 
+	EmptyLines.Sort();
+	
 	int32 EmptyLinesIndex = 0;
 	for (int32 Index = 0; Index < Lines.Num(); Index++)
 	{
@@ -83,7 +85,12 @@ void ULineChecker::FillEmptyLines(TArray<int32> EmptyLines)
 		{
 			return;
 		}
-		
+
+		if (EmptyLinesIndex == 0)
+		{
+			continue;
+		}
+
 		TArray<ATriggerPoint*> BlocksToMove = Lines[Index].TriggerPoints;
 		for (const ATriggerPoint* TriggerPoint : BlocksToMove)
 		{
