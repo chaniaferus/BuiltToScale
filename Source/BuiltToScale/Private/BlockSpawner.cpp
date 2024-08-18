@@ -29,7 +29,7 @@ void UBlockSpawner::Initialize(FSubsystemCollectionBase& Collection)
 
 			if (BlockClass->Level == 0)
 			{
-				InitialBlocks.Add(BlockClass->BlockClass.LoadSynchronous());
+				InitialBlocks.Add(BlockClass->BlockClass);
 			}
 		}
 	}
@@ -57,7 +57,6 @@ void UBlockSpawner::SpawnBlock()
 		return;
 	}
 
-	NextBlock.LoadSynchronous();
 	if (NextBlock == nullptr)
 	{
 		NextBlock = GetRandomUnlockedBlock();
@@ -72,7 +71,7 @@ void UBlockSpawner::SpawnBlock()
 	NextBlock = GetRandomUnlockedBlock();
 }
 
-TSoftClassPtr<AActor> UBlockSpawner::GetRandomUnlockedBlock()
+TSubclassOf<AActor> UBlockSpawner::GetRandomUnlockedBlock()
 {
 	const int32 RandomIndex = FMath::RandRange(0, UnlockedBlocks.Num() - 1);
 	if (!UnlockedBlocks.IsValidIndex(RandomIndex))
@@ -86,7 +85,7 @@ TSoftClassPtr<AActor> UBlockSpawner::GetRandomUnlockedBlock()
 void UBlockSpawner::SetupInitialUnlockedBlocks(const int NumberOfBlocks)
 {
 	UnlockedBlocks.Reset();
-	TArray<TSoftClassPtr<AActor>> BlocksPoll = InitialBlocks;
+	TArray<TSubclassOf<AActor>> BlocksPoll = InitialBlocks;
 
 	for (int32 Index = 0; Index < FMath::Min(NumberOfBlocks, InitialBlocks.Num()); Index++)
 	{
@@ -96,12 +95,12 @@ void UBlockSpawner::SetupInitialUnlockedBlocks(const int NumberOfBlocks)
 	}
 }
 
-void UBlockSpawner::AddBlock(TSoftClassPtr<AActor> Block)
+void UBlockSpawner::AddBlock(TSubclassOf<AActor> Block)
 {
-	UnlockedBlocks.Add(Block.LoadSynchronous());
+	UnlockedBlocks.Add(Block);
 }
 
-void UBlockSpawner::RemoveBlock(TSoftClassPtr<AActor> Block)
+void UBlockSpawner::RemoveBlock(TSubclassOf<AActor> Block)
 {
 	if (UnlockedBlocks.Contains(Block))
 	{
@@ -109,10 +108,10 @@ void UBlockSpawner::RemoveBlock(TSoftClassPtr<AActor> Block)
 	}
 }
 
-TArray<TSoftClassPtr<AActor>> UBlockSpawner::GetRandomUnlockedBlocks(int32 Number)
+TArray<TSubclassOf<AActor>> UBlockSpawner::GetRandomUnlockedBlocks(int32 Number)
 {
-	TArray<TSoftClassPtr<AActor>> Result;
-	TArray<TSoftClassPtr<AActor>> BlocksPoll;
+	TArray<TSubclassOf<AActor>> Result;
+	TArray<TSubclassOf<AActor>> BlocksPoll;
 	AGameModeBase* GameMode = UGameplayStatics::GetGameMode(GetWorld());
 
 	if (!GameMode)

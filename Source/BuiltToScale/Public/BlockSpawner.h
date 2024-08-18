@@ -17,7 +17,7 @@ struct FBlockClass : public FTableRowBase
 
 public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	TSoftClassPtr<AActor> BlockClass;
+	TSubclassOf<AActor> BlockClass;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	int32 Level = 0;
@@ -38,25 +38,25 @@ public:
 	void SpawnBlock();
 
 	UFUNCTION(BlueprintCallable)
-	TSoftClassPtr<AActor> GetRandomUnlockedBlock();
+	TSubclassOf<AActor> GetRandomUnlockedBlock();
 
 	UFUNCTION(BlueprintCallable)
 	void SetupInitialUnlockedBlocks(int NumberOfBlocks);
 
 	UFUNCTION(BlueprintCallable)
-	void AddBlock(TSoftClassPtr<AActor> Block);
+	void AddBlock(TSubclassOf<AActor> Block);
 
 	UFUNCTION(BlueprintCallable)
-	void RemoveBlock(TSoftClassPtr<AActor> Block);
+	void RemoveBlock(TSubclassOf<AActor> Block);
 
 	UFUNCTION(BlueprintCallable)
-	TArray<TSoftClassPtr<AActor>> GetRandomUnlockedBlocks(int32 Number);
+	TArray<TSubclassOf<AActor>> GetRandomUnlockedBlocks(int32 Number);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 	AActor* ActiveBlock;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
-	TSoftClassPtr<AActor> NextBlock;
+	TSubclassOf<AActor> NextBlock;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 	UPrimitiveComponent* SpawnPoint;
@@ -67,8 +67,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 
-	TArray<TSoftClassPtr<AActor>> InitialBlocks;
+	TArray<TSubclassOf<AActor>> InitialBlocks;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
-	TArray<TSoftClassPtr<AActor>> UnlockedBlocks;
+	TArray<TSubclassOf<AActor>> UnlockedBlocks;
 };
