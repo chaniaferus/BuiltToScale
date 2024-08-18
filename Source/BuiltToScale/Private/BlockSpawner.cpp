@@ -25,7 +25,7 @@ void UBlockSpawner::Initialize(FSubsystemCollectionBase& Collection)
 		FBlockClass* BlockClass = Settings->BlockTypes->FindRow<FBlockClass>(RowName, Context);
 		if (BlockClass != nullptr)
 		{
-			AllBlocks.Add(BlockClass->BlockClass.LoadSynchronous());
+			AllBlocks.Add(*BlockClass);
 
 			if (BlockClass->Level == 0)
 			{
@@ -109,4 +109,40 @@ void UBlockSpawner::RemoveBlock(TSoftClassPtr<AActor> Block)
 	{
 		UnlockedBlocks.Remove(Block);
 	}
+}
+
+TArray<TSoftClassPtr<AActor>> UBlockSpawner::GetRandomUnlockedBlocks(int32 Number)
+{
+	TArray<TSoftClassPtr<AActor>> Result;
+	TArray<TSoftClassPtr<AActor>> BlocksPoll;
+	AGameModeBase* GameMode = UGameplayStatics::GetGameMode(GetWorld());
+
+	if (!GameMode)
+	{
+		return {};
+	}
+
+	const ABlockGameMode* BlockGameMode = Cast<ABlockGameMode>(GameMode);
+
+	if (!BlockGameMode)
+	{
+		return {};
+	}
+	
+	for (FBlockClass Block : AllBlocks)
+	{
+		if (Block.Level <= BlockGameMode->PlayerLevel)
+		{
+			BlocksPoll.Add(Block.BlockClass);
+		}
+	}
+
+	for (int32 Index = 0; Index < FMath::Min(Number, BlocksPoll.Num()); Index++)
+	{
+		const int RandomIndex = FMath::RandRange(0, BlocksPoll.Num() - 1);
+		Result.Add(BlocksPoll[RandomIndex]);
+		BlocksPoll.RemoveAt(RandomIndex);
+	}
+
+	return Result;
 }

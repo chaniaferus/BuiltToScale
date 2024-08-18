@@ -21,4 +21,7 @@ class BUILTTOSCALE_API ABlockGameMode : public AGameModeBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 	float MoveInterval;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
+	int PlayerLevel = 0;
 };

@@ -49,6 +49,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void RemoveBlock(TSoftClassPtr<AActor> Block);
 
+	UFUNCTION(BlueprintCallable)
+	TArray<TSoftClassPtr<AActor>> GetRandomUnlockedBlocks(int32 Number);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 	AActor* ActiveBlock;
 
@@ -60,7 +63,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 
-	TArray<TSoftClassPtr<AActor>> AllBlocks;
+	TArray<FBlockClass> AllBlocks;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 
