@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "SingleBlockBase.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "BlueprintTools.generated.h"
 
@@ -26,7 +27,7 @@ public:
 	bool bTaken = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	AActor* OverlappingBlock = nullptr;
+	ASingleBlockBase* OverlappingBlock = nullptr;
 };
 
 UCLASS()

@@ -55,7 +55,7 @@ void ULineChecker::CleanLines(TArray<int32> LineNumbers)
 		{
 			if (TriggerPoint->OverlappingBlock)
 			{
-				TriggerPoint->OverlappingBlock->Destroy();
+				TriggerPoint->OverlappingBlock->DestroyBlock();
 			}
 		}
 	}
