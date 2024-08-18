@@ -56,7 +56,7 @@ public:
 	TSoftClassPtr<AActor> NextBlock;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
-	AActor* SpawnPoint;
+	UPrimitiveComponent* SpawnPoint;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawner")
 

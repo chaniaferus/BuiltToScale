@@ -62,7 +62,7 @@ void UBlockSpawner::SpawnBlock()
 		NextBlock = GetRandomUnlockedBlock();
 	}
 
-	const FVector SpawnLocation = SpawnPoint->GetActorLocation();
+	const FVector SpawnLocation = SpawnPoint->GetComponentLocation();
 	FRotator SpawnRotation = FRotator(0, 0, 0);
 	SpawnRotation.Roll += 90 * FMath::RandRange(0, 3);
 
