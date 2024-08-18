@@ -99,7 +99,7 @@ void UBlockSpawner::AddBlock(TSoftClassPtr<AActor> Block)
 {
 	if (!UnlockedBlocks.Contains(Block))
 	{
-		UnlockedBlocks.Add(Block);
+		UnlockedBlocks.Add(Block.LoadSynchronous());
 	}
 }
 
