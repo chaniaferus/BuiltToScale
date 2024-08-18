@@ -104,7 +104,7 @@ void UBlockSpawner::RemoveBlock(TSoftClassPtr<AActor> Block)
 {
 	if (UnlockedBlocks.Contains(Block))
 	{
-		UnlockedBlocks.Remove(Block);
+		UnlockedBlocks.RemoveSingle(Block);
 	}
 }
 
