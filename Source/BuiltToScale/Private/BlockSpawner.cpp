@@ -57,6 +57,7 @@ void UBlockSpawner::SpawnBlock()
 		return;
 	}
 
+	NextBlock.LoadSynchronous();
 	if (NextBlock == nullptr)
 	{
 		NextBlock = GetRandomUnlockedBlock();
