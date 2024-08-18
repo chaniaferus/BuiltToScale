@@ -2,11 +2,13 @@
 
 
 #include "BlueprintTools.h"
+#include "Kismet/GameplayStatics.h"
 
 void UBlueprintTools::GenerateTriggerGrid(UObject* WorldContext, const TSoftClassPtr<ATriggerPoint> Class,
                                           UStaticMeshComponent* BottomBorder, const int32 CubeSize, const int32 SizeX,
                                           const int32 SizeY)
 {
+	DestroyExistingTriggerPoints(WorldContext);
 	FVector StartPoint = BottomBorder->GetComponentLocation();
 	StartPoint.Y += CubeSize * 0.5;
 	StartPoint.Z += CubeSize * 1.5;
@@ -34,5 +36,19 @@ void UBlueprintTools::GenerateTriggerGrid(UObject* WorldContext, const TSoftClas
 			CurrentLocation.Y += CubeSize;
 		}
 		CurrentLocation.Z += CubeSize;
+	}
+}
+
+void UBlueprintTools::DestroyExistingTriggerPoints(UObject* WorldContext)
+{
+	TArray<AActor*> TriggerPoints;
+	UGameplayStatics::GetAllActorsOfClass(WorldContext->GetWorld(), ATriggerPoint::StaticClass(), TriggerPoints);
+
+	for (AActor* Actor : TriggerPoints)
+	{
+		if (Actor != nullptr)
+		{
+			Actor->Destroy();
+		}
 	}
 }

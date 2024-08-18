@@ -37,4 +37,7 @@ class BUILTTOSCALE_API UBlueprintTools : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, Category="BlueprintTools")
 	static void GenerateTriggerGrid(UObject* WorldContext, TSoftClassPtr<ATriggerPoint> Class,
 	                                UStaticMeshComponent* BottomBorder, int32 CubeSize, int32 SizeX, int32 SizeY);
+
+	UFUNCTION(BlueprintCallable, Category="BlueprintTools")
+	static void DestroyExistingTriggerPoints(UObject* WorldContext);
 };
