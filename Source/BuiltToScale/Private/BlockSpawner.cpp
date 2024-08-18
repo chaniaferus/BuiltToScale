@@ -97,10 +97,7 @@ void UBlockSpawner::SetupInitialUnlockedBlocks(const int NumberOfBlocks)
 
 void UBlockSpawner::AddBlock(TSoftClassPtr<AActor> Block)
 {
-	if (!UnlockedBlocks.Contains(Block))
-	{
-		UnlockedBlocks.Add(Block.LoadSynchronous());
-	}
+	UnlockedBlocks.Add(Block.LoadSynchronous());
 }
 
 void UBlockSpawner::RemoveBlock(TSoftClassPtr<AActor> Block)
@@ -128,7 +125,7 @@ TArray<TSoftClassPtr<AActor>> UBlockSpawner::GetRandomUnlockedBlocks(int32 Numbe
 	{
 		return {};
 	}
-	
+
 	for (FBlockClass Block : AllBlocks)
 	{
 		if (Block.Level <= BlockGameMode->PlayerLevel)
