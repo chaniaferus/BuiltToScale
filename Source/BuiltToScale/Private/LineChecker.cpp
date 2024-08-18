@@ -5,6 +5,7 @@
 
 void ULineChecker::SetTriggerPoints(TArray<ATriggerPoint*> TriggerPoints)
 {
+	Lines.Empty();
 	for (ATriggerPoint* TriggerPoint : TriggerPoints)
 	{
 		if (TriggerPoint == nullptr)
@@ -52,7 +53,10 @@ void ULineChecker::CleanLines(TArray<int32> LineNumbers)
 		
 		for (ATriggerPoint* TriggerPoint : TriggerPoints)
 		{
-			TriggerPoint->OverlappingBlock->Destroy();
+			if (TriggerPoint->OverlappingBlock)
+			{
+				TriggerPoint->OverlappingBlock->Destroy();
+			}
 		}
 	}
 }
